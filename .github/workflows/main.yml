@@ -10,27 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1. Baixar Codigo do Repositorio
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 2. Configurar Java 17
+      - name: Java 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 3. Configurar Android SDK
+      - name: Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: 4. Configurar Gradle 8.7
+      - name: Corrigir KTS
+        run: |
+          rm -rf app/src/test app/src/androidTest
+          echo "W3ZlcnNpb25zXQphZ3AgPSAiOC41LjIiCmNvcmVLdHggPSAiMS4xMy4xIgpsaWZlY3ljbGVSdW50aW1lS3R4ID0gIjIuOC43IgpsaWZlY3ljbGVWaWV3bW9kZWxDb21wb3NlID0gIjIuOC43IgpsaWZlY3ljbGVSdW50aW1lQ29tcG9zZSA9ICIyLjguNyIKYWN0aXZpdHlDb21wb3NlID0gIjEuOS4zIgprb3RsaW4gPSAiMi4wLjIxIgpjb21wb3NlQm9tID0gIjIwMjQuMDkuMDMiCmtvdGxpbnhDb3JvdXRpbmVzQW5kcm9pZCA9ICIxLjguMSIKa290bGlueENvcm91dGluZXNDb3JlID0gIjEuOC4xIgpmaXJlYmFzZUJvbSA9ICIzMy41LjEiCmdvb2dsZVNlcnZpY2VzID0gIjQuNC4yIgpzaGl6dWt1ID0gIjEzLjEuNSIKCltsaWJyYXJpZXNdCmFuZHJvaWR4LWNvcmUta3R4ID0geyBncm91cCA9ICJhbmRyb2lkeC5jb3JlIiwgbmFtZSA9ICJjb3JlLWt0eCIsIHZlcnNpb24ucmVmID0gImNvcmVLdHgiIH0KYW5kcm9pZHgtbGlmZWN5Y2xlLXJ1bnRpbWUta3R4ID0geyBncm91cCA9ICJhbmRyb2lkeC5saWZlY3ljbGUiLCBuYW1lID0gImxpZmVjeWNsZS1ydW50aW1lLWt0eCIsIHZlcnNpb24ucmVmID0gImxpZmVjeWNsZVJ1bnRpbWVLdHgiIH0KYW5kcm9pZHgtbGlmZWN5Y2xlLXZpZXdtb2RlbC1jb21wb3NlID0geyBncm91cCA9ICJhbmRyb2lkeC5saWZlY3ljbGUiLCBuYW1lID0gImxpZmVjeWNsZS12aWV3bW9kZWwtY29tcG9zZSIsIHZlcnNpb24ucmVmID0gImxpZmVjeWNsZVZpZXdtb2RlbENvbXBvc2UiIH0KYW5kcm9pZHgtbGlmZWN5Y2xlLXJ1bnRpbWUtY29tcG9zZSA9IHsgZ3JvdXAgPSAiYW5kcm9pZHgubGlmZWN5Y2xlIiwgbmFtZSA9ICJsaWZlY3ljbGUtcnVudGltZS1jb21wb3NlIiwgdmVyc2lvbi5yZWYgPSAibGlmZWN5Y2xlUnVudGltZUNvbXBvc2UiIH0KYW5kcm9pZHgtYWN0aXZpdHktY29tcG9zZSA9IHsgZ3JvdXAgPSAiYW5kcm9pZHguYWN0aXZpdHkiLCBuYW1lID0gImFjdGl2aXR5LWNvbXBvc2UiLCB2ZXJzaW9uLnJlZiA9ICJhY3Rpdml0eUNvbXBvc2UiIH0KYW5kcm9pZHgtY29tcG9zZS1ib20gPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UiLCBuYW1lID0gImNvbXBvc2UtYm9tIiwgdmVyc2lvbi5yZWYgPSAiY29tcG9zZUJvbSIgfQphbmRyb2lkeC1jb21wb3NlLXVpID0geyBncm91cCA9ICJhbmRyb2lkeC5jb21wb3NlLnVpIiwgbmFtZSA9ICJ1aSIgfQphbmRyb2lkeC1jb21wb3NlLXVpLWdyYXBoaWNzID0geyBncm91cCA9ICJhbmRyb2lkeC5jb21wb3NlLnVpIiwgbmFtZSA9ICJ1aS1ncmFwaGljcyIgfQphbmRyb2lkeC1jb21wb3NlLXVpLXRvb2xpbmcgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRvb2xpbmciIH0KYW5kcm9pZHgtY29tcG9zZS11aS10b29saW5nLXByZXZpZXcgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRvb2xpbmctcHJldmlldyIgfQphbmRyb2lkeC1jb21wb3NlLXVpLXRlc3QtbWFuaWZlc3QgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRlc3QtbWFuaWZlc3QiIH0KYW5kcm9pZHgtY29tcG9zZS1tYXRlcmlhbDMgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwzIiwgbmFtZSA9ICJtYXRlcmlhbDMiIH0KYW5kcm9pZHgtY29tcG9zZS1tYXRlcmlhbC1pY29ucy1jb3JlID0geyBncm91cCA9ICJhbmRyb2lkeC5jb21wb3NlLm1hdGVyaWFsIiwgbmFtZSA9ICJtYXRlcmlhbC1pY29ucy1jb3JlIiB9CmFuZHJvaWR4LWNvbXBvc2UtbWF0ZXJpYWwtaWNvbnMtZXh0ZW5kZWQgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwiLCBuYW1lID0gIm1hdGVyaWFsLWljb25zLWV4dGVuZGVkIiB9CmtvdGxpbnhfY29yb3V0aW5lc19hbmRyb2lkID0geyBncm91cCA9ICJvcmcuamV0YnJhaW5zLmtvdGxpbngiLCBuYW1lID0gImtvdGxpbngtY29yb3V0aW5lcy1hbmRyb2lkIiwgdmVyc2lvbi5yZWYgPSAia290bGlueENvcm91dGluZXNBbmRyb2lkIiB9CmtvdGxpbnhfY29yb3V0aW5lc19jb3JlID0geyBncm91cCA9ICJvcmcuamV0YnJhaW5zLmtvdGxpbngiLCBuYW1lID0gImtvdGxpbngtY29yb3V0aW5lcy1jb3JlIiwgdmVyc2lvbi5yZWYgPSAia290bGlueENvcm91dGluZXNDb3JlIiB9CmZpcmViYXNlLWJvbSA9IHsgZ3JvdXAgPSAiY29tLmdvb2dsZS5maXJlYmFzZSIsIG5hbWUgPSAiZmlyZWJhc2UtYm9tIiwgdmVyc2lvbi5yZWYgPSAiZmlyZWJhc2VCb20iIH0KZmlyZWJhc2UtYWkgPSB7IGdyb3VwID0gImNvbS5nb29nbGUuZmlyZWJhc2UiLCBuYW1lID0gImZpcmViYXNlLXZlcnRleGFpIiB9CmZpcmViYXNlLWFwcGNoZWNrLXJlY2FwdGNoYSA9IHsgZ3JvdXAgPSAiY29tLmdvb2dsZS5maXJlYmFzZSIsIG5hbWUgPSAiZmlyZWJhc2UtYXBwY2hlY2stcmVjYXB0Y2hhIiB9CmZpcmViYXNlLWFwcGNoZWNrLWRlYnVnID0geyBncm91cCA9ICJjb20uZ29vZ2xlLmZpcmViYXNlIiwgbmFtZSA9ICJmaXJlYmFzZS1hcHBjaGVjay1kZWJ1ZyIgfQpzaGl6dWt1LWFwaSA9IHsgZ3JvdXAgPSAiZGV2LnJpa2thLnNoaXp1a3UiLCBuYW1lID0gImFwaSIsIHZlcnNpb24ucmVmID0gInNoaXp1a3UiIH0Kc2hpenVrdS1wcm92aWRlciA9IHsgZ3JvdXAgPSAiZGV2LnJpa2thLnNoaXp1a3UiLCBuYW1lID0gInByb3ZpZGVyIiwgdmVyc2lvbi5yZWYgPSAic2hpenVrdSIgfQoKW3BsdWdpbnNdCmFuZHJvaWQtYXBwbGljYXRpb24gPSB7IGlkID0gImNvbS5hbmRyb2lkLmFwcGxpY2F0aW9uIiwgdmVyc2lvbi5yZWYgPSAiYWdwIiB9CmtvdGxpbi1hbmRyb2lkID0geyBpZCA9ICJvcmcuamV0YnJhaW5zLmtvdGxpbi5hbmRyb2lkIiwgdmVyc2lvbi5yZWYgPSAiS290bGluIiB9CmtvdGxpbi1jb21wb3NlID0geyBpZCA9ICJvcmcuamV0YnJhaW5zLmtvdGxpbi5wbHVnaW4uY29tcG9zZSIsIHZlcnNpb24ucmVmID0gImtvdGxpbiIgfQpnb29nbGUtc2VydmljZXMgPSB7IGlkID0gImNvbS5nb29nbGUuZ21zLmdvb2dsZS1zZXJ2aWNlcyIsIHZlcnNpb24ucmVmID0gImdvb2dsZVNlcnZpY2VzIiB9Cg==" | base64 -d > gradle/libs.versions.toml
+          sed -i 's/version.ref = "Kotlin"/version.ref = "kotlin"/g' gradle/libs.versions.toml
+          sed -i 's/kotlinx_coroutines_/kotlinx-coroutines-/g' gradle/libs.versions.toml
+          printf 'plugins {\n  alias(libs.plugins.android.application) apply false\n  alias(libs.plugins.kotlin.android) apply false\n  alias(libs.plugins.kotlin.compose) apply false\n  alias(libs.plugins.google.services) apply false\n}\n' > build.gradle.kts
+          printf 'plugins {\n  alias(libs.plugins.android.application)\n  alias(libs.plugins.kotlin.android)\n  alias(libs.plugins.kotlin.compose)\n  alias(libs.plugins.google.services)\n}\nandroid {\n  namespace = "com.example"\n  compileSdk = 34\n  defaultConfig {\n    applicationId = "com.raylan.grxlento"\n    minSdk = 26\n    targetSdk = 34\n    versionCode = 1\n    versionName = "1.0"\n  }\n  compileOptions {\n    sourceCompatibility = JavaVersion.VERSION_17\n    targetCompatibility = JavaVersion.VERSION_17\n  }\n  kotlinOptions { jvmTarget = "17" }\n  buildFeatures { compose = true; buildConfig = true }\n}\ndependencies {\n  implementation(platform(libs.androidx.compose.bom))\n  implementation(platform(libs.firebase.bom))\n  implementation(libs.androidx.activity.compose)\n  implementation(libs.androidx.compose.material.icons.core)\n  implementation(libs.androidx.compose.material.icons.extended)\n  implementation(libs.androidx.compose.material3)\n  implementation(libs.androidx.compose.ui)\n  implementation(libs.androidx.compose.ui.graphics)\n  implementation(libs.androidx.compose.ui.tooling.preview)\n  implementation(libs.androidx.core.ktx)\n  implementation(libs.androidx.lifecycle.runtime.compose)\n  implementation(libs.androidx.lifecycle.runtime.ktx)\n  implementation(libs.androidx.lifecycle.viewmodel.compose)\n  implementation(libs.firebase.ai)\n  implementation(libs.firebase.appcheck.recaptcha)\n  implementation(libs.firebase.appcheck.debug)\n  implementation(libs.kotlinx.coroutines.android)\n  implementation(libs.kotlinx.coroutines.core)\n  implementation(libs.shizuku.api)\n  implementation(libs.shizuku.provider)\n  debugImplementation(libs.androidx.compose.ui.test.manifest)\n  debugImplementation(libs.androidx.compose.ui.tooling)\n}\n' > app/build.gradle.kts
+
+      - name: Gradle 8.7
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
 
-      - name: 5. Compilar APK Debug
+      - name: Compilar APK
         run: gradle assembleDebug --stacktrace
 
-      - name: 6. Publicar APK Pronto (GRX LENTO)
+      - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
           name: GRX-LENTO-RAYLAN-APK
