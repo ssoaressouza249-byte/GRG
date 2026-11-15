@@ -19,9 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Corrigir KTS
         run: |
           rm -rf app/src/test app/src/androidTest
